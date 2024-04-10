@@ -1,0 +1,44 @@
+name: kafka-producer workflow
+
+on:
+  # 어떤 브랜치에서, 어떤 동작 발생시 actions를 실행시킬 것인지 정의
+  push:
+    branches: [ master ]
+
+  workflow_dispatch:
+
+# job -> step -> action 순서로 정의
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - name: checkout release
+      uses: actions/checkout@v3
+
+    # Runs a single command using the runners shell
+    - name: Clean temp directory
+      run: |
+        rm -rf *
+        cp -r $GITHUB_WORKSPACE . 
+
+    - name: archive drcloud
+      run: tar cvfz ./kafka-producer.tar.gz *
+
+    - name: AWS configure credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY }}
+        aws-secret-access-key: ${{ secrets.AWS_ACCESS_SECRET_KEY }}
+        aws-region: ap-northeast-2
+
+    - name: upload to S3
+      run: aws s3 cp --region ap-northeast-2 ./kafka-producer.tar.gz s3://datalake-actions-deploy/kafka-producer
+
+    - name: deploy with AWS codeDeploy
+      run: aws deploy create-deployment
+        --application-name datalake-deploy
+        --deployment-config-name CodeDeployDefault.OneAtATime
+        --deployment-group-name kafka-deploy
+        --s3-location bucket=datalake-actions-deploy,bundleType=tgz,key=kafka-producer/kafka-producer.tar.gz
