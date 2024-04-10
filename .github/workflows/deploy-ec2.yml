@@ -17,6 +17,7 @@ jobs:
     - name: checkout release
       # uses: 이미 만들어진 action을 사용할 때 사용
       uses: actions/checkout@v3
+    - name: check
       run: ls -al
     - name: archive drcloud
       run: tar cvfz ./kafka-producer.tar.gz *
