@@ -21,6 +21,7 @@ jobs:
     - name: Clean temp directory
       run: |
         rm -rf *
+        echo `pwd`
         cp -r $GITHUB_WORKSPACE . 
 
     - name: archive drcloud
