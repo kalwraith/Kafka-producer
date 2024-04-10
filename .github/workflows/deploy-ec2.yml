@@ -20,7 +20,8 @@ jobs:
     - name: Clean temp directory
       run: |
         rm -rf *
-        echo `ls`
+        echo `pwd`
+        find /home/runner/work/Kafka-producer -name README.md
 
     - name: archive drcloud
       run: tar cvfz ./kafka-producer.tar.gz *
