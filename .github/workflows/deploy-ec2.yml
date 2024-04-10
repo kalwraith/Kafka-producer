@@ -21,7 +21,7 @@ jobs:
       run: |
         rm -rf *
         echo `pwd`
-        find /home/runner/work/Kafka-producer -name README.md
+        find /home/runner/work -name README.md
 
     - name: archive drcloud
       run: tar cvfz ./kafka-producer.tar.gz *
