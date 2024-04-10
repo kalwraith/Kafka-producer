@@ -20,7 +20,7 @@ jobs:
     - name: Clean temp directory
       run: |
         rm -rf *
-        echo `pwd`
+        ls
 
     - name: archive drcloud
       run: tar cvfz ./kafka-producer.tar.gz *
