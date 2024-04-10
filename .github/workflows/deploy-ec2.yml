@@ -10,18 +10,14 @@ on:
 jobs:
   # This workflow contains a single job called "build"
   build:
+    # github에서 제공하는 ubuntu 환경에서 실행
+    # runs-on 항목 아래부터 step 정의
     runs-on: ubuntu-latest
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - name: checkout release
+      # uses: 이미 만들어진 action을 사용할 때 사용
       uses: actions/checkout@v3
-
-    # Runs a single command using the runners shell
-    - name: Clean temp directory
-      run: |
-        rm -rf *
-        echo `pwd`
-        find /home/runner -name producer.py
+      run: ls -al
 
     - name: archive drcloud
       run: tar cvfz ./kafka-producer.tar.gz *
