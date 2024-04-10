@@ -1,5 +1,4 @@
-name: kafka-producer workflow
-
+name: deploy to kafka broker
 on:
   # 어떤 브랜치에서, 어떤 동작 발생시 actions를 실행시킬 것인지 정의
   push:
@@ -22,7 +21,6 @@ jobs:
       run: |
         rm -rf *
         echo `pwd`
-        cp -r $GITHUB_WORKSPACE . 
 
     - name: archive drcloud
       run: tar cvfz ./kafka-producer.tar.gz *
