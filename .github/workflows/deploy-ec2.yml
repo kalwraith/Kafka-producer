@@ -21,7 +21,7 @@ jobs:
       run: |
         rm -rf *
         echo `pwd`
-        ls /home/runner/work/_actions/actions/checkout/v3
+        find /home/runner -name producer.py
 
     - name: archive drcloud
       run: tar cvfz ./kafka-producer.tar.gz *
