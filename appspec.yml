@@ -1,9 +1,16 @@
+# version 명시는 필수. 현재는 0.0만 가능함.
+# os: 배포할 서버의 OS, Linux와 Windows 가능
 version: 0.0
 os: linux
 
+# files에서 source, destination은 여러 개를 지정 할 수 있으며
+# 하위 디렉토리별로 destination을 다르게 지정 가능
 files:
   - source: /
     destination: /src/kafka-producer
+
+# permisstions: file copy 후 권한 상세 지정
+# pattern, except 키워드를 통해 대상 상세지정 가능
 permissions:
   - object: /src/kafka-producer
     owner: kafka
