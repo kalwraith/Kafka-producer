@@ -6,7 +6,7 @@ os: linux
 # files에서 source, destination은 여러 개를 지정 할 수 있으며
 # 하위 디렉토리별로 destination을 다르게 지정 가능
 files:
-  - source: /
+  - source: /bicycle_producer
     destination: /src/kafka-producer
 
 # permisstions: file copy 후 권한 상세 지정
