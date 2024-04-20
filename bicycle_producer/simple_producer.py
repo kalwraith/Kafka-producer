@@ -3,12 +3,14 @@ from datetime import datetime
 import sys
 import time
 
+BROKER_LST = 'kafka01:6667,kafka02:6667,kafka03:6667'
+
 
 class SimpleProducer:
-    def __init__(self, broker_lst, topic):
-        self.broker_lst = broker_lst
+
+    def __init__(self, topic):
         self.topic = topic
-        self.conf = {'bootstrap.servers': broker_lst}
+        self.conf = {'bootstrap.servers': BROKER_LST}
 
         self.producer = Producer(**self.conf)
 
@@ -49,3 +51,7 @@ class SimpleProducer:
         # Wait until all messages have been delivered
         sys.stderr.write('%% Waiting for %d deliveries\n' % len(self.producer))
         self.producer.flush()
+
+
+simple_producer = SimpleProducer(topic='test.simple.produce')
+simple_producer.produce()
