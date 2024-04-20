@@ -3,13 +3,14 @@ from datetime import datetime
 import sys
 import time
 
-BROKER_LST = 'kafka01:6667,kafka02:6667,kafka03:6667'
+BROKER_LST = 'kafka01:9092,kafka02:9092,kafka03:9092'
 
 
 class SimpleProducer:
 
-    def __init__(self, topic):
+    def __init__(self, topic, duration):
         self.topic = topic
+        self.duration = duration
         self.conf = {'bootstrap.servers': BROKER_LST}
 
         self.producer = Producer(**self.conf)
@@ -26,7 +27,7 @@ class SimpleProducer:
 
     def produce(self):
         cnt = 0
-        while cnt < 60:
+        while cnt < self.duration:
             msg = f'{datetime.now()}, {cnt}'
             try:
                 # Produce line (without newline)
