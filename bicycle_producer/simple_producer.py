@@ -8,9 +8,9 @@ BROKER_LST = 'kafka01:9092,kafka02:9092,kafka03:9092'
 
 class SimpleProducer:
 
-    def __init__(self, topic, duration):
+    def __init__(self, topic, duration=None):
         self.topic = topic
-        self.duration = duration
+        self.duration = duration if duration is not None else 60
         self.conf = {'bootstrap.servers': BROKER_LST}
 
         self.producer = Producer(**self.conf)
@@ -28,7 +28,6 @@ class SimpleProducer:
     def produce(self):
         cnt = 0
         while cnt < self.duration:
-            msg = f'{datetime.now()}, {cnt}'
             try:
                 # Produce line (without newline)
                 self.producer.produce(
@@ -54,5 +53,6 @@ class SimpleProducer:
         self.producer.flush()
 
 
-simple_producer = SimpleProducer(topic='test.simple.produce')
-simple_producer.produce()
+if __name__ == '__main__':
+    simple_producer = SimpleProducer(topic='test.simple.produce', duration=60)
+    simple_producer.produce()

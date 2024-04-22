@@ -1,0 +1,1 @@
+python /src/kafka-producer/config/deploy.py
