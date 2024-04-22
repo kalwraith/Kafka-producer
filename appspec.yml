@@ -26,6 +26,6 @@ permissions:
 # hooks 를 통해 before/after 동작 수행 가능
 hooks:
   AfterInstall:
-    - location: kafka-producer/config/before_install.sh
+    - location: config/after_install.sh
       timeout: 60
-      runas: kafka
+      runas: root
