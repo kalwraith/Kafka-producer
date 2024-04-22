@@ -23,7 +23,7 @@ jobs:
     - name: translate application.yml
       env:
         AUTH_KEY_SEOUL_DATA: ${{ secrets.AUTH_KEY_SEOUL_DATA }}
-      run: sed -e 's/##auth_key_seoul_data_hjkim##/$AUTH_KEY_SEOUL_DATA/g' ./kafka-producer/config/application.yml
+      run: ls -al;sed -e 's/##auth_key_seoul_data_hjkim##/$AUTH_KEY_SEOUL_DATA/g' ./kafka-producer/config/application.yml
 
 
     - name: add execute permission to before_install.sh
