@@ -45,7 +45,7 @@ class BicycleProducer():
                 # 컬럼명 변경
                 item['STT_ID'] = item.pop('stationId')
                 item['STT_NM'] = item.pop('stationName')
-                item['TOT_RACK_CNT'] = item.pop('rackToCnt')
+                item['TOT_RACK_CNT'] = item.pop('rackTotCnt')
                 item['TOT_PRK_CNT'] = item.pop('parkingBikeTotCnt')
                 item['RT_PRK_RACK'] = item.pop('shared')
                 item['STT_LTTD'] = item.pop('stationLatitude')
