@@ -16,7 +16,7 @@ class RealtimeBicycle:
         # url 형태: http://openapi.seoul.go.kr:8088/(인증키)/json/bikeList/1/5/
         base_url = f'{self.api_url}/{self.auth_key}/json/{self.dataset_nm}'
         start = 1
-        end = 100
+        end = 1000
         total_rows = []
         while True:
             contents = self._call_api(base_url, start, end)
@@ -42,7 +42,7 @@ class RealtimeBicycle:
             if item_cnt < 1000:
                 break
             else:
-                start += 1000
+                start += end
                 end += 1000
         return total_rows
 

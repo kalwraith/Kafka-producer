@@ -78,8 +78,8 @@ class BicycleProducer():
             self.log.info('%% Waiting for %d deliveries\n' % len(self.producer))
             self.producer.flush()
 
-            # 15분 대기
-            time.sleep(60*15)
+            # 15초 대기
+            time.sleep(15)
 
 
 if __name__ == '__main__':
