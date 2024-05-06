@@ -7,7 +7,8 @@ from pprint import pprint
 class RealtimeBicycle:
 
     def __init__(self, dataset_nm):
-        self.auth_key = '##auth_key_seoul_data##'
+        self.auth_key = '4c545370646b616c3733704a554a55'
+        #self.auth_key = '##auth_key_seoul_data##'
         self.api_url = 'http://openapi.seoul.go.kr:8088'
         self.dataset_nm = dataset_nm
         self._set_logger()
@@ -42,7 +43,7 @@ class RealtimeBicycle:
             if item_cnt < 1000:
                 break
             else:
-                start += end
+                start = end + 1
                 end += 1000
         return total_rows
 
