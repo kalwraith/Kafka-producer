@@ -83,5 +83,5 @@ class BicycleProducer():
 
 
 if __name__ == '__main__':
-    producer = Producer(topic='apis.seouldata.rt-bicycle')
-    producer.produce()
+    bicycle_producer = BicycleProducer(topic='apis.seouldata.rt-bicycle')
+    bicycle_producer.produce()
