@@ -39,7 +39,7 @@ class BicycleProducer():
     def produce(self):
         rt_bycicle = RealtimeBicycle(dataset_nm='bikeList')
         while True:
-            now_dt = datetime.now()
+            now_dt = datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')
             items = rt_bycicle.call()
             for item in items:
                 # 컬럼명 변경
@@ -59,7 +59,7 @@ class BicycleProducer():
                 try:
                     self.producer.produce(
                         topic=self.topic,
-                        key=json.dumps({'STT_NM': item['STT_NM']}),
+                        key=json.dumps({'STT_ID': item['STT_ID']}),
                         value=json.dumps(item),
                         on_delivery=self.delivery_callback
                     )
