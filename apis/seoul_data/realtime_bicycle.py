@@ -7,7 +7,8 @@ from pprint import pprint
 class RealtimeBicycle:
 
     def __init__(self, dataset_nm):
-        self.auth_key = '##auth_key_seoul_data##'
+        self.auth_key = '4c545370646b616c3733704a554a55'
+        #self.auth_key = '##auth_key_seoul_data##'
         self.api_url = 'http://openapi.seoul.go.kr:8088'
         self.dataset_nm = dataset_nm
         self._set_logger()
@@ -16,7 +17,7 @@ class RealtimeBicycle:
         # url 형태: http://openapi.seoul.go.kr:8088/(인증키)/json/bikeList/1/5/
         base_url = f'{self.api_url}/{self.auth_key}/json/{self.dataset_nm}'
         start = 1
-        end = 1000
+        end = 100
         total_rows = []
         while True:
             contents = self._call_api(base_url, start, end)
