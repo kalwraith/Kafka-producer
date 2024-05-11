@@ -6,12 +6,7 @@ services:
     container_name: kafka-ui
     image: provectuslabs/kafka-ui:latest
     ports:
-      - 8080:8080
+      - 8081:8080
     environment:
-      KAFKA_CLUSTERS_0_NAME: kafka01
-      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka01:9092
-      KAFKA_CLUSTERS_1_NAME: kafka02
-      KAFKA_CLUSTERS_1_BOOTSTRAPSERVERS: kafka02:9092
-      KAFKA_CLUSTERS_2_NAME: kafka03
-      KAFKA_CLUSTERS_2_BOOTSTRAPSERVERS: kafka03:9092
-      DYNAMIC_CONFIG_ENABLED: 'true'
+      KAFKA_CLUSTERS_0_NAME: Kafka Cluster for datalake
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka01:9092,kafka02:9092,kafka03:9092
