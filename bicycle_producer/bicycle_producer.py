@@ -38,7 +38,7 @@ class BicycleProducer():
     def produce(self):
         rt_bycicle = RealtimeBicycle(dataset_nm='bikeList')
         while True:
-            now_dt = datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')
+            now_dt = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             items = rt_bycicle.call()
             for item in items:
                 # 컬럼명 변경
