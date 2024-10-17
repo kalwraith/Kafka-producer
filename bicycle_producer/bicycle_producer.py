@@ -46,7 +46,7 @@ class BicycleProducer():
                 item['STT_NM'] = item.pop('stationName')
                 item['TOT_RACK_CNT'] = item.pop('rackTotCnt')
                 item['TOT_PRK_CNT'] = item.pop('parkingBikeTotCnt')
-                item['RT_PRK_RACK'] = item.pop('shared')
+                item['RATIO_PRK_RACK'] = item.pop('shared')
                 item['STT_LTTD'] = item.pop('stationLatitude')
                 item['STT_LGTD'] = item.pop('stationLongitude')
 
@@ -58,7 +58,7 @@ class BicycleProducer():
                 try:
                     self.producer.produce(
                         topic=self.topic,
-                        key=json.dumps({'STT_ID': item['STT_ID']}),
+                        key=json.dumps({'STT_ID': item['STT_ID'],'CRT_DTTM':item['CRT_DTTM']}),
                         value=json.dumps(item),
                         on_delivery=self.delivery_callback
                     )
@@ -67,11 +67,11 @@ class BicycleProducer():
                     self.log.error('%% Local producer queue is full (%d messages awaiting delivery): try again\n' %
                                      len(self.producer))
 
-                # Serve delivery callback queue.
-                # NOTE: Since produce() is an asynchronous API this poll() call
-                #       will most likely not serve the delivery callback for the
-                #       last produce()d message.
-                self.producer.poll(0)
+            # Serve delivery callback queue.
+            # NOTE: Since produce() is an asynchronous API this poll() call
+            #       will most likely not serve the delivery callback for the
+            #       last produce()d message.
+            self.producer.poll(0)
 
             # Wait until all messages have been delivered
             self.log.info('%% Waiting for %d deliveries\n' % len(self.producer))
