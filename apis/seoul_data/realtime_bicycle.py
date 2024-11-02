@@ -1,8 +1,9 @@
 import requests
 import json
 import logging
+from logging.handlers import TimedRotatingFileHandler
 from pprint import pprint
-
+import time
 
 class RealtimeBicycle:
 
@@ -10,7 +11,7 @@ class RealtimeBicycle:
         self.auth_key = '##auth_key_seoul_data##'
         self.api_url = 'http://openapi.seoul.go.kr:8088'
         self.dataset_nm = dataset_nm
-        self._set_logger()
+        self.log = self._get_logger()
 
     def call(self):
         # url 형태: http://openapi.seoul.go.kr:8088/(인증키)/json/bikeList/1/5/
@@ -31,7 +32,7 @@ class RealtimeBicycle:
                 else:
                     rslt_msg = contents.get('MESSAGE')
                     self.log.error(f'요청 실패, 에러코드: {rslt_code}, 메시지:{rslt_msg}')
-                    raise Exception(contents)
+                    time.sleep(30)      # 30초 대기
 
             key_nm = list(contents.keys())[0]
             items = contents.get(key_nm)
@@ -57,27 +58,29 @@ class RealtimeBicycle:
             url = f'{base_url}/{start}/{end}'
         rslt = requests.get(url, headers)
         try:
-            self.log.info(f'요청 url: {url}')
             contents = json.loads(rslt.text)
+            self.log.info(f'요청 url: {url}, 건수: {len(contents)}')
         except:
             # url 요청 실패시 XML 형태로 에러 내용 리턴됨
             self.log.error(f'요청 실패 {rslt.text}')
-            raise Exception(f'요청 실패 {rslt.text}')
+            time.sleep(30)      # 30초 대기
         else:
 
             return contents
 
-    def _set_logger(self):
+    def _get_logger(self):
         logging.basicConfig(
             format='%(asctime)s [%(levelname)s]:%(message)s',
             level=logging.INFO,
             datefmt='%Y-%m-%d %H:%M:%S'
         )
-        self.log = logging.getLogger(__name__)
+        handler = TimedRotatingFileHandler('/log/call_bicycle_api.log', when="midnight", backupCount=7)
+        handler.suffix = "%Y-%m-%d"
+        logger = logging.getLogger(__name__)
+        logger.addHandler(handler)
+
+        return logger
 
 
 real_bicycle = RealtimeBicycle(dataset_nm='bikeList')
 items = real_bicycle.call()
-print(f'item 총 건수: {len(items)}')
-print(f'item 상위 5개 보기')
-pprint(items[:5])
