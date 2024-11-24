@@ -1,2 +1,4 @@
 .DS_Store
 .idea
+apis/__pycache__
+apis/seoul_data/__pycache__
