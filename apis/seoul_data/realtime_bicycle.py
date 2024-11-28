@@ -3,6 +3,7 @@ import json
 import logging
 from logging.handlers import TimedRotatingFileHandler
 import time
+import os
 
 
 class RealtimeBicycle:
@@ -10,7 +11,9 @@ class RealtimeBicycle:
     def __init__(self, dataset_nm):
         self.auth_key = '##auth_key_seoul_data##'
         self.api_url = 'http://openapi.seoul.go.kr:8088'
+        self.log_dir = '/log/seoul_api'
         self.dataset_nm = dataset_nm
+        self.chk_dir()
         self.log = self._get_logger()
 
     def call(self):
@@ -68,13 +71,16 @@ class RealtimeBicycle:
 
             return contents
 
+    def chk_dir(self):
+        os.makedirs(self.log_dir, exist_ok=True)
+
     def _get_logger(self):
         logging.basicConfig(
             format='%(asctime)s [%(levelname)s]:%(message)s',
             level=logging.INFO,
             datefmt='%Y-%m-%d %H:%M:%S'
         )
-        handler = TimedRotatingFileHandler('/log/call_bicycle_api.log', when="midnight", backupCount=7)
+        handler = TimedRotatingFileHandler('/log/seoul_apis/call_bicycle_api.log', when="midnight", backupCount=7)
         handler.suffix = "%Y-%m-%d"
         logger = logging.getLogger(__name__)
         logger.addHandler(handler)
