@@ -20,12 +20,6 @@ jobs:
       # actions/checkout@4는 본 레파지토리의 내용을 checkout 하여 runner 서버에 저장함
       uses: actions/checkout@v4
 
-    # application.yml 파일 내 ## 부분을 실제 값으로 변경
-    - name: translate application.yml
-      env:
-        AUTH_KEY_SEOUL_DATA: ${{ secrets.AUTH_KEY_SEOUL_DATA }}
-      run: sed -ie "s/##auth_key_seoul_data_hjkim##/$AUTH_KEY_SEOUL_DATA/g" ./config/application.yml
-
     - name: archive to tar.gz
       run: tar cvfz ./kafka-producer.tar.gz *
 
