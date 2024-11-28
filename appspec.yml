@@ -32,6 +32,6 @@ hooks:
       runas: kafka
 
   BeforeAllowTraffic:
-    - location: config/before_allow_traffic
+    - location: config/before_allow_traffic.sh
       timeout: 30
       runas: root
