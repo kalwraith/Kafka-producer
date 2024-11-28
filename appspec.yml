@@ -28,5 +28,5 @@ permissions:
 hooks:
   AfterInstall:
     - location: config/after_install.sh
-      timeout: 60
+      timeout: 120
       runas: kafka
