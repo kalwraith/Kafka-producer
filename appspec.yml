@@ -25,3 +25,8 @@ permissions:
 
 
 # hooks 를 통해 before/after 동작 수행 가능
+hooks:
+  AfterInstall:
+    - location: config/after_install.sh
+      timeout: 60
+      runas: kafka
