@@ -80,7 +80,7 @@ class RealtimeBicycle:
             level=logging.INFO,
             datefmt='%Y-%m-%d %H:%M:%S'
         )
-        handler = TimedRotatingFileHandler('/log/seoul_apis/call_bicycle_api.log', when="midnight", backupCount=7)
+        handler = TimedRotatingFileHandler(os.path.join(self.log_dir, 'call_bicycle_api.log'), when="midnight", backupCount=7)
         handler.suffix = "%Y-%m-%d"
         logger = logging.getLogger(__name__)
         logger.addHandler(handler)
