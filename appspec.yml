@@ -30,3 +30,8 @@ hooks:
     - location: config/after_install.sh
       timeout: 120
       runas: kafka
+
+  BeforeAllowTraffic:
+    - location: config/before_allow_traffic
+      timeout: 30
+      runas: root
