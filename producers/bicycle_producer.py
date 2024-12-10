@@ -58,7 +58,7 @@ class BicycleProducer():
                     self.producer.produce(
                         topic=self.topic,
                         key=json.dumps({'STT_ID': item['STT_ID'],'CRT_DTTM':item['CRT_DTTM']}, ensure_ascii=False),
-                        value=json.dumps(item),
+                        value=json.dumps(item, ensure_ascii=False),
                         on_delivery=self.delivery_callback
                     )
 
