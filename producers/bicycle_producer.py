@@ -32,8 +32,7 @@ class BicycleProducer():
         if err:
             self.log.error('%% Message failed delivery: %s\n' % err)
         else:
-            self.log.info('%% Message delivered to %s [%d] @ %d\n' %
-                             (msg.topic(), msg.partition(), msg.offset()))
+            pass
 
     def produce(self):
         rt_bycicle = RealtimeBicycle(dataset_nm='bikeList')
