@@ -36,8 +36,7 @@ class BicycleProducer():
         if err:
             self.log.error('%% Message failed delivery: %s\n' % err)
         else:
-            self.log.info('%% Message delivered to %s [%d] @ %d\n' %
-                             (msg.topic(), msg.partition(), msg.offset()))
+            pass
 
     def produce(self):
         rt_bycicle = RealtimeBicycle(dataset_nm='bikeList')
@@ -62,8 +61,8 @@ class BicycleProducer():
                 try:
                     self.producer.produce(
                         topic=self.topic,
-                        key=json.dumps({'STT_ID': item['STT_ID'],'CRT_DTTM':item['CRT_DTTM']}),
-                        value=json.dumps(item),
+                        key=json.dumps({'STT_ID': item['STT_ID'],'CRT_DTTM':item['CRT_DTTM']}, ensure_ascii=False),
+                        value=json.dumps(item, ensure_ascii=False),
                         on_delivery=self.delivery_callback
                     )
 
