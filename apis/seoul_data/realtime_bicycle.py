@@ -1,9 +1,11 @@
 import requests
 import json
+from json.decoder import JSONDecodeError
 import logging
 from logging.handlers import TimedRotatingFileHandler
 import time
 import os
+import traceback
 
 
 class RealtimeBicycle:
@@ -23,7 +25,15 @@ class RealtimeBicycle:
         end = 1000
         total_rows = []
         while True:
-            contents = self._call_api(base_url, start, end)
+            try:
+                rslt = self._call_api(base_url, start, end)
+                contents = json.loads(rslt.text)
+            except JSONDecodeError:
+                # url 요청 실패시 XML 형태로 에러 내용 리턴됨
+                self.log.error(f'요청 실패, {traceback.format_exc()}')
+                time.sleep(30)  # 30초 대기 후 재시도
+                continue
+
 
             # 정상이 아닌 경우 처리
             rslt_code = contents.get('CODE')
@@ -61,15 +71,7 @@ class RealtimeBicycle:
         else:
             url = f'{base_url}/{start}/{end}'
         rslt = requests.get(url, headers)
-        try:
-            contents = json.loads(rslt.text)
-        except:
-            # url 요청 실패시 XML 형태로 에러 내용 리턴됨
-            self.log.error(f'요청 실패 {rslt.text}')
-            time.sleep(30)      # 30초 대기
-        else:
-
-            return contents
+        return rslt
 
     def chk_dir(self):
         os.makedirs(self.log_dir, exist_ok=True)
