@@ -3,7 +3,7 @@ on:
   # 어떤 브랜치에서 어떤 동작 발생시 actions 를 실행시킬 것인지 정의
   # 실습에서는 master branch 에 push가 발생했을 때로 정의함
   push:
-    branches: [ master, ch5.6 ]
+    branches: [ master, ch5.8 ]
 
   workflow_dispatch:
 
