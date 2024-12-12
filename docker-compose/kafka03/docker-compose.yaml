@@ -20,7 +20,7 @@ services:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.retention.time=168h'
     volumes:
-      - /src/kafka-producer/docker_compose/kafka03/prometheus.yml:/etc/prometheus/prometheus.yml
+      - /src/kafka-producer/docker-compose/kafka03/prometheus.yml:/etc/prometheus/prometheus.yml
       - /data/prometheus/data:/prometheus
     ports:
       - 9090:9090
