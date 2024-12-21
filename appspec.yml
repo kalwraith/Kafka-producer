@@ -8,8 +8,10 @@ os: linux
 # source 항목이 디렉토리면, 디렉토리 안의 디렉토리/파일들이 copy 됨 (지정한 디렉토리 자체는 copy 되지 않음)
 # source 항목이 파일이면, 해당 파일이 copy 됨
 files:
-  - source: /
-    destination: /src/kafka-producer
+  - source: /producers
+    destination: /src/kafka-producer/producers
+  - source: /docker-compose
+    destination: /src/kafka-producer/docker-compose
 
 # /src/kafka-producer 에 동일 파일이 존재할 경우 덮어쓰기
 # DISALLOW|OVERWRITE|RETAIN 지정 가능
@@ -17,21 +19,21 @@ file_exists_behavior: OVERWRITE
 
 # permisstions: file copy 후 권한 상세 지정
 # pattern, except 키워드를 통해 대상 상세지정 가능
-#permissions:
-#  - object: /src/kafka-producer
-#    owner: kafka
-#    group: kafka
-#    mode: 755
+permissions:
+  - object: /src/kafka-producer
+    owner: kafka
+    group: kafka
+    mode: 755
 
 
 # hooks 를 통해 before/after 동작 수행 가능
-#hooks:
-#  AfterInstall:
-#    - location: config/after_install.sh
-#      timeout: 120
-#      runas: kafka
-#
-#  BeforeAllowTraffic:
-#    - location: config/before_allow_traffic
-#      timeout: 30
-#      runas: root
+hooks:
+  AfterInstall:
+    - location: config/after_install.sh
+      timeout: 120
+      runas: kafka
+
+  BeforeAllowTraffic:
+    - location: config/before_allow_traffic
+      timeout: 30
+      runas: root
