@@ -17,21 +17,21 @@ file_exists_behavior: OVERWRITE
 
 # permisstions: file copy 후 권한 상세 지정
 # pattern, except 키워드를 통해 대상 상세지정 가능
-permissions:
-  - object: /src/kafka-producer
-    owner: kafka
-    group: kafka
-    mode: 755
+#permissions:
+#  - object: /src/kafka-producer
+#    owner: kafka
+#    group: kafka
+#    mode: 755
 
 
 # hooks 를 통해 before/after 동작 수행 가능
-hooks:
-  AfterInstall:
-    - location: config/after_install.sh
-      timeout: 120
-      runas: kafka
-
-  BeforeAllowTraffic:
-    - location: config/before_allow_traffic
-      timeout: 30
-      runas: root
+#hooks:
+#  AfterInstall:
+#    - location: config/after_install.sh
+#      timeout: 120
+#      runas: kafka
+#
+#  BeforeAllowTraffic:
+#    - location: config/before_allow_traffic
+#      timeout: 30
+#      runas: root
