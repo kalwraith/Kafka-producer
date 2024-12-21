@@ -8,10 +8,8 @@ os: linux
 # source 항목이 디렉토리면, 디렉토리 안의 디렉토리/파일들이 copy 됨 (지정한 디렉토리 자체는 copy 되지 않음)
 # source 항목이 파일이면, 해당 파일이 copy 됨
 files:
-  - source: /producers
-    destination: /src/kafka-producer/producers
-  - source: /docker-compose
-    destination: /src/kafka-producer/docker-compose
+  - source: /
+    destination: /src/kafka-producer
 
 # /src/kafka-producer 에 동일 파일이 존재할 경우 덮어쓰기
 # DISALLOW|OVERWRITE|RETAIN 지정 가능
